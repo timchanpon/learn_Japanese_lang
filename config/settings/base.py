@@ -22,6 +22,7 @@ INSTALLED_APPS = [
 
     'words.apps.WordsConfig',
     'accounts.apps.AccountsConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
