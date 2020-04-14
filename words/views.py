@@ -10,7 +10,8 @@ class WordAPIView(generics.ListAPIView):
     serializer_class = WordSerializer
 
     def get_queryset(self):
-        pks = Word.objects.filter(word_count=5).values_list('pk', flat=True)
+        word_count = self.kwargs['word_count']
+        pks = Word.objects.filter(word_count=word_count).values_list('pk', flat=True)
         pks_list = list(pks)
 
         pk = self.kwargs['pk']
