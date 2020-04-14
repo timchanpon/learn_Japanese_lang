@@ -1,4 +1,5 @@
 import os
+import sys
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -116,3 +117,7 @@ STATICFILES_DIRS = (
 
 # Define custom user model
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+# Add apps/ to the Python path
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
