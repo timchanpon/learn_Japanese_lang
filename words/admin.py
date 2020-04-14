@@ -22,7 +22,7 @@ class WordAdmin(admin.ModelAdmin):
         # word_count
         word_count = len(word)
 
-        obj.spell = romaji
+        obj.romaji = romaji
         obj.word_count = word_count
         obj.save()
 
