@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'words.apps.WordsConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
