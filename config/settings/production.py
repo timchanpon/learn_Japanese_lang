@@ -11,6 +11,58 @@ ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 STATIC_ROOT = '/usr/share/nginx/html/static'
 
 
+# Logging settings
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    # Logger setting
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+        },
+        'home': {
+            'handlers': ['file'],
+            'level': 'INFO',
+        },
+        'words': {
+            'handlers': ['file'],
+            'level': 'INFO',
+        },
+        'accounts': {
+            'handlers': ['file'],
+            'level': 'INFO',
+        },
+    },
+
+    # Handler setting
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'formatter': 'prod',
+            'when': 'D',  # Log rotation
+            'interval': 1,  # Log rotation
+            'backupCount': 7,  # Save 7 logs
+        },
+    },
+
+    # Formatter setting
+    'formatters': {
+        'prod': {
+            'format': '\t'.join([
+                '%(asctime)s',
+                '[%(levelname)s]',
+                '%(pathname)s(Line:%(lineno)d)',
+                '%(message)s'
+            ])
+        },
+    }
+}
+
+
 # Security settings
 # security.W006
 SECURE_CONTENT_TYPE_NOSNIFF = True
