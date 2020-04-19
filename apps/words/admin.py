@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Word
+from .models import Word, Character
 from .chars_dict import hiragana
 
 
@@ -28,3 +28,4 @@ class WordAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Word, WordAdmin)
+admin.site.register(Character)
