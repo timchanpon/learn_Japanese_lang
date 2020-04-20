@@ -9,10 +9,12 @@
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 </head>
 <body>
 
 <div id="app">
+  {% csrf_token %}
   <div v-if="!words">
     <p><button @click="start('Easy')">PLAY EASY</button></p>
     <p><button @click="start('Normal')">PLAY NORMAL</button></p>
@@ -104,6 +106,13 @@
           this.words = null
           clearTimeout(timeoutAfterJudge)
           clearInterval(intervalTimeLeft)
+
+          axios.post(
+            'analytics/',
+            {headers: {
+              'X-CSRFToken': Cookies.get('csrftoken'),
+            }},
+          )
         }
       }
     },
