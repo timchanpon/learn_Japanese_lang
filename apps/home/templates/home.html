@@ -13,8 +13,8 @@
 <body>
 
 <div id="app">
-  <button v-if="!words" @click="start(1)">START EASY</button>
-  <button v-if="!words" @click="start(5)">START HARD</button>
+  <button v-if="!words" @click="start('hiragana')">START EASY</button>
+  <button v-if="!words" @click="start('word')">START HARD</button>
   <div v-if="!words && countAll>0">
     <h3>Result</h3>
     <p>Correct Answer: [[ countCorrect ]] /[[ countAll ]]</p>
@@ -24,7 +24,8 @@
   <div v-if="words">
     <h4>[[ timeLeft + ' sec left' ]]</h4>
 
-    <h3>[[ answer.word ]]</h3>
+    <h3 v-if="answer.word">[[ answer.word ]]</h3>
+    <h3 v-if="answer.hiragana">[[ answer.hiragana ]]</h3>
     <p v-for="word in words">
       <input :id="word.pk" type="radio" v-model="option" :value="word" @change="judgeAnswer">
       <label :for="word.pk">[[ word.romaji ]]</label>
@@ -41,7 +42,7 @@
   new Vue({
     el: '#app',
     data: {
-      level: null,
+      mode: '',
       words: null,
       answer: null,
 
@@ -53,22 +54,22 @@
       countCorrect: 0,
     },
     methods: {
-      start: function(lev) {
+      start: function(mode) {
         this.timeLeft = 20
         this.countAll = 0
         this.countCorrect = 0
         intervalTimeLeft = setInterval(
           function() { this.timeLeft-- }.bind(this), 1000
         )
-        this.level = lev
+        this.mode = mode
         axios
-          .get('words/' + this.level + '/null/')
+          .get('words/' + this.mode + '/null/')
           .then(res => (this.words = res.data))
       },
       getWords: function() {
         this.option = this.judge = null
         axios
-          .get('words/' + this.level + '/' + this.answer.pk + '/')
+          .get('words/' + this.mode + '/' + this.answer.pk + '/')
           .then(res => (this.words = res.data))
       },
       judgeAnswer: function() {

@@ -4,5 +4,5 @@ from .views import WordAPIView
 
 
 urlpatterns = [
-    path('<int:word_count>/<str:pk>/', WordAPIView.as_view()),
+    path('<str:mode>/<str:prev>/', WordAPIView.as_view()),
 ]
