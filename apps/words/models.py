@@ -22,8 +22,8 @@ class Word(models.Model):
 
 class Character(models.Model):
 
-    hiragana = models.CharField(max_length=2)
-    katakana = models.CharField(max_length=2)
+    hiragana = models.CharField(max_length=2, unique=True)
+    katakana = models.CharField(max_length=2, unique=True)
     romaji = models.CharField(max_length=3)
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
