@@ -13,8 +13,8 @@
 <body>
 
 <div id="app">
-  <button v-if="!words" @click="start('hiragana')">START EASY</button>
-  <button v-if="!words" @click="start('word')">START HARD</button>
+  <p><button v-if="!words" @click="start('hiragana')">START EASY</button></p>
+  <p><button v-if="!words" @click="start('word')">START HARD</button></p>
   <div v-if="!words && countAll>0">
     <h3>Result</h3>
     <p>Correct Answer: [[ countCorrect ]] /[[ countAll ]]</p>

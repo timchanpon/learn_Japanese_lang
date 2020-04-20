@@ -1,6 +1,11 @@
 @charset "UTF-8";
 
 
+div#app {
+    padding: 20px;
+    text-align: center;
+}
+
 input[type="radio"] {
     display: none;
 }
