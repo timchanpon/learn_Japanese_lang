@@ -13,14 +13,19 @@
 <body>
 
 <div id="app">
-  <p><button v-if="!words" @click="start('Easy')">PLAY EASY</button></p>
-  <p><button v-if="!words" @click="start('Normal')">PLAY NORMAL</button></p>
-  <p><button v-if="!words" @click="start('Hard')">PLAY HARD</button></p>
-  <div v-if="!words && countAll>0">
-    <h3>Result</h3>
-    <p>Play Mode: [[ mode ]]</p>
-    <p>Correct Answer: [[ countCorrect ]] /[[ countAll ]]</p>
-    <p>Speed: [[ countAll / 20 ]] words /s</p>
+  <div v-if="!words">
+    <p><button @click="start('Easy')">PLAY EASY</button></p>
+    <p><button @click="start('Normal')">PLAY NORMAL</button></p>
+    <p><button @click="start('Hard')">PLAY HARD</button></p>
+    <div v-if="countAll>0">
+      <h3>Result</h3>
+      <p>Play Mode: [[ mode ]]</p>
+      <p>Correct Answer: [[ countCorrect ]] /[[ countAll ]]</p>
+      <p>Speed: [[ countAll / 20 ]] words /s</p>
+    </div>
+    <div class="meta">
+      <p id="copyright">&copy;2020 寺井颯紀</p>
+    </div>
   </div>
 
   <div v-if="words">
