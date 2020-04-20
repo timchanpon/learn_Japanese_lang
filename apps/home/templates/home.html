@@ -13,10 +13,12 @@
 <body>
 
 <div id="app">
-  <p><button v-if="!words" @click="start('hiragana')">START EASY</button></p>
-  <p><button v-if="!words" @click="start('word')">START HARD</button></p>
+  <p><button v-if="!words" @click="start('Easy')">PLAY EASY</button></p>
+  <p><button v-if="!words" @click="start('Normal')">PLAY NORMAL</button></p>
+  <p><button v-if="!words" @click="start('Hard')">PLAY HARD</button></p>
   <div v-if="!words && countAll>0">
     <h3>Result</h3>
+    <p>Play Mode: [[ mode ]]</p>
     <p>Correct Answer: [[ countCorrect ]] /[[ countAll ]]</p>
     <p>Speed: [[ countAll / 20 ]] words /s</p>
   </div>

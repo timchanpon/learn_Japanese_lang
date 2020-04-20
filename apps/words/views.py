@@ -10,16 +10,18 @@ class WordAPIView(generics.ListAPIView):
 
     def get_serializer_class(self):
         mode = self.kwargs['mode']
-        if mode == 'word':
+        if mode == 'Normal' or mode == 'Hard':
             return WordSerializer
-        else:  # elif mode == 'hiragana'
+        else:  # elif mode == 'Easy'
             return CharacterSerializer
 
     def get_queryset(self):
         mode = self.kwargs['mode']
-        if mode == 'word':
-            objects = Word.objects
-        else:  # elif mode == 'hiragana'
+        if mode == 'Normal':
+            objects = Word.objects.filter(word_count=3)
+        elif mode == 'Hard':
+            objects = Word.objects.filter(word_count=5)
+        else:  # elif mode == 'Easy'
             objects = Character.objects
 
         pks = objects.values_list('pk', flat=True)
