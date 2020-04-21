@@ -12,7 +12,7 @@ class AnalyticsAPIView(APIView):
         objects = Analytics.objects
 
         played_time = objects.filter(ignore=False).aggregate(data=Sum('play_time'))
-        client_count = objects.count()
+        client_count = objects.filter(ignore=False).count()
 
         context = {
             'played_time': played_time['data'],
