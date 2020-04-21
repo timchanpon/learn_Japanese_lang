@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models import Sum
 
 from .models import Analytics
 
@@ -8,20 +9,20 @@ from .models import Analytics
 class AnalyticsAPIView(APIView):
 
     def get(self, request):
-        forwarded_address = self.request.META.get('HTTP_X_FORWARDED_FOR')
-        if forwarded_address:
-            client_address = forwarded_address.split(',')[0]
-        else:
-            client_address = request.META.get('REMOTE_ADDR')
+        objects = Analytics.objects
 
-        data = {
-            'client_address': client_address,
+        played_time = objects.aggregate(data=Sum('play_time'))
+        client_count = objects.count()
+
+        context = {
+            'played_time': played_time['data'],
+            'client_count': client_count,
         }
 
-        return Response(data)
+        return Response(context)
 
     def post(self, request):
-        forwarded_address = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        forwarded_address = request.META.get('HTTP_X_FORWARDED_FOR')
         if forwarded_address:
             client_address = forwarded_address.split(',')[0]
         else:
