@@ -28,14 +28,15 @@ class AnalyticsAPIView(APIView):
         else:
             client_address = request.META.get('REMOTE_ADDR')
 
-        ips = Analytics.objects.values_list('ip_address', flat=True)
+        objects = Analytics.objects
+        ips = objects.values_list('ip_address', flat=True)
         ips_list = list(ips)
 
         if client_address in ips_list:
-            obj = Analytics.objects.get(ip_address=client_address)
+            obj = objects.get(ip_address=client_address)
             obj.play_time += 1
             obj.save()
         else:
-            Analytics.objects.create(ip_address=client_address)
+            objects.create(ip_address=client_address)
 
         return Response(status=status.HTTP_200_OK)
