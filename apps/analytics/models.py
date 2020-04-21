@@ -7,6 +7,7 @@ class Analytics(models.Model):
 
     ip_address = models.CharField(max_length=15, unique=True)
     play_time = models.PositiveIntegerField(default=1)
+    ignore = models.BooleanField(default=False)
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
